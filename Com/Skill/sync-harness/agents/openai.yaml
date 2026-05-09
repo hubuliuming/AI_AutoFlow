@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sync Harness"
+  short_description: "Synchronize AGENTS and CLAUDE rules"
+  default_prompt: "Use $sync-harness to synchronize AGENTS.md and CLAUDE.md rules in the current workspace."
