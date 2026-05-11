@@ -5,12 +5,13 @@
 - Repository path: `C:\dev\U3D\AI_AutoFlow`
 - Repository name: `AI_AutoFlow`
 - License file exists: `LICENSE`
-- `README.md` exists and is currently empty.
+- `README.md` exists and now provides an external-facing project description, usage workflow, directory overview, collaboration convention, and maintainer note for Skill synchronization.
 - Visible project purpose: `UNKNOWN`
 
 ## Document Index
 
 - `Doc/AI_Understanding.md`: project-level AI understanding entry document.
+- `README.md`: external-facing repository entry document summarizing project description, usage workflow, directory overview, and collaboration convention.
 - `AGENTS.md`: root Codex collaboration rule document.
 - `Unity/AGENTS.md`: Unity-side controlled execution rules.
 - `Unity/CLAUDE.md`: Claude-side counterpart of Unity execution rules.
@@ -22,13 +23,14 @@
 - `Com/Skill/`: local Codex skills.
 - `Doc/`: AI-facing project documents.
 - `Unity/`: Unity-side project area and harness instruction files.
-- `README.md`: present but empty.
+- `README.md`: external-facing repository entry document for users and maintainers.
 - `LICENSE`: project license file.
 
 ## Confirmed Facts
 
 - Root `AGENTS.md` says the agent has three duties: generate a plan from the user prompt, execute based on a confirmed plan, and synchronize real changes back to project documents.
 - Root `AGENTS.md` requires Codex client-side Skill synchronization whenever content under `Com/Skill/` is modified.
+- `README.md` has been adjusted to serve external users with project explanation and usage flow, while still avoiding undocumented Unity runtime, gameplay, or build-process facts.
 - `Unity/AGENTS.md` and `Unity/CLAUDE.md` define the Unity-side agent as a controlled code execution agent.
 - Unity-side rules require a confirmed plan before execution.
 - Unity-side rules require real changes to be synchronized back to project documents after execution.
