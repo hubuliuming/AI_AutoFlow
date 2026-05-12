@@ -1,126 +1,184 @@
 ---
 name: init-ai-docs
-description: Use when the user says "初始化AI文档", asks to initialize AI understanding docs, or wants Codex to create or update Doc/AI_Understanding.md and module docs that help future AI agents understand the current project quickly.
+description: Use when the user says "初始化AI文档", asks to initialize Chinese AI understanding docs, or wants Codex to create or update Doc/AI_Understanding.md as a document map plus module docs under Doc/.
 ---
 
-# Initialize AI Docs
+# 初始化 AI 文档
 
-Use this skill to create or update AI-facing project understanding documents under `Doc/`.
+当用户要求“初始化AI文档”时，使用此 Skill 扫描项目事实，并在 `Doc/` 下生成或更新中文 AI 理解文档。
 
-## Trigger
+## 触发条件
 
-Run this skill when the user says:
+用户出现以下意图时触发：
 
 - `初始化AI文档`
-- asks to initialize AI docs
-- asks to create or refresh `AI_Understanding.md`
-- asks to generate project understanding docs for future AI work
+- 初始化 AI 文档
+- 创建或刷新 `Doc/AI_Understanding.md`
+- 生成帮助 AI 快速理解项目的中文文档
+- 根据项目模块生成 `Doc/` 下的 AI 理解文档
 
-## Core Rules
+## 核心定位
 
-1. Locate the project root from the current working directory unless the user gives another path.
-2. Read project instructions first:
-   - root `AGENTS.md`
-   - nested `AGENTS.md`
-   - `CLAUDE.md`
-   - existing files under `Doc/`
-3. Read all Chinese or Markdown documents with explicit UTF-8 encoding.
-4. Scan the project structure before writing:
-   - top-level directories and files
-   - `Com/Skill/`
-   - `Unity/`
-   - existing `Doc/`
-   - git-tracked files when available
-5. Create `Doc/AI_Understanding.md` if it does not exist.
-6. If `Doc/AI_Understanding.md` exists, update only affected sections.
-7. Write only facts found in files or directory structure.
-8. If a detail cannot be proven from current files, write `UNKNOWN`.
-9. Do not infer architecture, runtime behavior, or module purpose beyond documented facts.
-10. Do not rewrite unrelated documents.
+`Doc/AI_Understanding.md` 是文档结构索引总入口，可以理解为项目文档总地图。
 
-## Document Set
+它只负责说明：
 
-Always maintain:
+- 项目身份
+- 文档索引
+- 目录地图
+- 模块索引
+- 推荐阅读顺序
+- 全局确认事实
+- 全局未知项汇总
 
-- `Doc/AI_Understanding.md` as the project-level entry document.
+详细项目信息必须尽量写入对应子模块文档，不要堆在 `AI_Understanding.md` 里。
 
-Create module documents only when the scan finds a clear independent module or workflow that would make `AI_Understanding.md` too dense. Prefer these names when applicable:
+## 文档语言规则
 
-- `Doc/Unity.md` for Unity-side project rules, assets, scripts, and execution constraints.
-- `Doc/Skills.md` for local Codex skills under `Com/Skill/`.
-- `Doc/Modules/<module-name>.md` for larger project modules, if a module boundary is explicit.
+1. 所有写入 `Doc/` 的文档必须使用中文。
+2. 专有名词、文件名、路径、类名、方法名、命令、配置键可以保留原文。
+3. 无法从当前文件证明的信息写为 `UNKNOWN`。
+4. 不允许为了让文档完整而脑补项目目的、架构、运行流程或模块职责。
+5. 读取和写入中文文档时必须显式使用 UTF-8。
 
-Do not create module documents for empty or unclear areas.
+## 扫描范围
 
-## AI_Understanding.md Shape
+从当前工作目录定位项目根目录，除非用户指定其他路径。
 
-Use this structure unless the existing document already has a compatible shape:
+优先读取：
+
+- `AGENTS.md`
+- `AGENT.md`
+- `CLAUDE.md`
+- `README.md`
+- `Doc/`
+- `Com/Skill/`
+- `Unity/`
+
+文件列表优先使用 `rg --files`；不可用时再使用平台递归文件列表。
+
+## 文档集合
+
+必须维护：
+
+- `Doc/AI_Understanding.md`
+
+根据扫描结果创建或更新子模块文档：
+
+- `Doc/Skills.md`：当存在 `Com/Skill/` 时记录本地 Skill 信息。
+- `Doc/Unity.md`：当存在 `Unity/` 时记录 Unity 侧规则、目录和已确认事实。
+- `Doc/Modules/<模块名>.md`：仅当项目中存在边界明确的业务模块、系统模块或资源模块时创建。
+
+不要为空目录、不明确区域或无法证明职责的文件夹创建子模块文档。
+
+## AI_Understanding.md 推荐结构
+
+如果现有结构兼容，只更新受影响部分；否则使用以下中文结构：
 
 ```markdown
-# AI Understanding
+# AI 理解总图
 
-## Project Identity
+## 项目身份
 
-## Document Index
+## 文档索引
 
-## Directory Map
+## 目录地图
 
-## Confirmed Facts
+## 模块索引
 
-## Module Overview
+## 推荐阅读顺序
 
-## Current Strategy
+## 全局确认事实
 
-## Known Issues
-
-## Unknowns
+## 全局未知项
 ```
 
-Section meanings:
+各节含义：
 
-- `Project Identity`: repository name, visible purpose, license, readme state.
-- `Document Index`: AI-facing docs and what each one covers.
-- `Directory Map`: important directories and files.
-- `Confirmed Facts`: facts directly found in files.
-- `Module Overview`: modules discovered during the scan.
-- `Current Strategy`: current execution or collaboration rules already documented.
-- `Known Issues`: documented problems only.
-- `Unknowns`: missing or unproven information.
+- `项目身份`：仓库名、路径、许可证、README 状态、可确认的项目用途。
+- `文档索引`：`Doc/` 下每份 AI 文档的职责。
+- `目录地图`：顶层目录与关键文件。
+- `模块索引`：模块文档列表和入口路径。
+- `推荐阅读顺序`：未来 AI 进入项目时的阅读顺序。
+- `全局确认事实`：跨模块事实，只写已证明内容。
+- `全局未知项`：当前文件无法证明的信息。
 
-## Workflow
+## 子模块文档推荐结构
 
-1. Read project docs and existing AI docs with explicit UTF-8 encoding.
-2. List files with `rg --files` if available; otherwise use the platform's recursive file listing.
-3. Inspect only files needed to identify project structure and module boundaries.
-4. Decide whether `Doc/AI_Understanding.md` alone is sufficient or module docs are warranted.
-5. Write minimal, factual updates.
-6. Run `git diff -- Doc Com/Skill/init-ai-docs` after editing.
-7. If the diff shows garbled Chinese or unrelated rewrites, stop and report the issue.
+每个子模块文档使用以下中文结构：
 
-## Output Requirements
+```markdown
+# <模块名>
 
-After updating docs, report:
+## 模块定位
 
-- files created or changed
-- module docs created, if any
-- facts recorded
-- unknowns that remain
-- whether `git diff` was checked
+## 目录与文件
 
-## Blocking Conditions
+## 确认事实
 
-Stop and ask for confirmation when:
+## 当前策略
 
-- existing docs conflict and neither source has clear priority
-- the requested document would require inventing facts
-- UTF-8 reading or diff output shows garbled Chinese
-- module boundaries are unclear but the user asked for separate module docs
+## 已知问题
 
-Use this format when blocked:
+## 未知项
+```
+
+子模块文档只记录该模块相关事实，不重复粘贴总入口内容。
+
+## 模块拆分规则
+
+创建子模块文档前必须确认模块边界。
+
+可以创建模块文档的情况：
+
+- 存在独立顶层目录，且目录名表达明确职责。
+- 已有文档明确说明模块职责。
+- 文件结构显示稳定分组，例如多个同类 Skill、多个 Unity 规则文档、明确命名的业务目录。
+
+不得创建模块文档的情况：
+
+- 目录为空。
+- 只有零散文件，无法证明模块职责。
+- 需要推测业务含义。
+- 模块信息少到可以放在总入口的一行索引中。
+
+## 工作流程
+
+1. 使用显式 UTF-8 读取项目规则、README、已有 `Doc/` 文档和关键模块文件。
+2. 扫描项目文件结构，识别可证明的模块边界。
+3. 先规划文档集合：总入口加哪些子模块文档。
+4. 更新 `Doc/AI_Understanding.md` 为中文总地图。
+5. 创建或更新必要的子模块文档。
+6. 每份文档只更新受影响部分，避免无关重写。
+7. 检查 `git diff -- Doc`，确认中文正常且内容只包含真实扫描结果。
+8. 如果本 Skill 自身发生修改，还必须按项目 `AGENTS.md` 规则同步到 Codex 客户端侧 Skill。
+
+## 输出要求
+
+完成后用中文汇报：
+
+- 创建或修改了哪些文档
+- `AI_Understanding.md` 中的总地图变化
+- 创建或更新了哪些子模块文档
+- 记录了哪些关键事实
+- 还保留哪些 `UNKNOWN`
+- 是否检查了 UTF-8 读回和 diff
+
+## 阻断条件
+
+遇到以下情况必须停止并请求确认：
+
+- 现有文档互相冲突，且无法判断优先级。
+- 用户要求写入的信息无法从项目文件证明。
+- UTF-8 读取或 diff 显示中文乱码。
+- 用户要求拆分子模块文档，但当前项目结构无法证明模块边界。
+- 需要写入 `Doc/` 之外的新文档位置。
+
+阻断时使用：
 
 ```text
 【阻断原因】
-<specific reason>
+<具体原因>
 【需要确认】
-<specific decision needed>
+<需要用户确认的点>
 ```
