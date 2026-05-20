@@ -234,8 +234,6 @@ wire_api = "responses"
 
 ## 7. 启用 CC Switch Local Routing
 
-在 CC Switch 的 Codex 页面中找到类似选项：
-
 保存成功config.tomal后 启动
  
 ---
