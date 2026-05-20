@@ -43,11 +43,17 @@ go env -w GOSUMDB=sum.golang.google.cn
 
 ```powershell
 cd C:\dev
-git clone https://github.com/ZhiYi-R/moon-bridge.git
+git clone https://github.com/hubuliuming/moon-bridge.git
 cd C:\dev\moon-bridge
 Copy-Item .\config.example.yml .\config.yml
 notepad .\config.yml
 ```
+--- 
+原地址：https://github.com/ZhiYi-R/moon-bridge.git
+
+下载的新地址为本人优化过版本
+
+---
 
 ### 2.4 安装 CC Switch
 
@@ -231,7 +237,7 @@ wire_api = "responses"
 在 CC Switch 的 Codex 页面中找到类似选项：
 
 保存成功config.tomal后 启动
-
+ 
 ---
 
 ## 8. 重启 Codex 客户端
