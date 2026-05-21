@@ -1,0 +1,41 @@
+{
+  "models": [
+    {
+      "slug": "moonbridge",
+      "display_name": "moonbridge",
+      "description": "DeepSeek V4 Pro via Moon Bridge, configured for 1M context in Codex.",
+      "context_window": 1000000,
+      "max_context_window": 1000000,
+      "auto_compact_token_limit": 900000,
+      "default_reasoning_level": "xhigh",
+      "supported_reasoning_levels": [
+        {
+          "effort": "high",
+          "description": "High reasoning effort"
+        },
+        {
+          "effort": "xhigh",
+          "description": "Extra high reasoning effort"
+        }
+      ],
+      "supports_reasoning_summaries": true,
+      "reasoning_summary_format": "experimental",
+      "default_reasoning_summary": "auto",
+      "apply_patch_tool_type": "freeform",
+      "web_search_tool_type": "text",
+      "input_modalities": [
+        "text"
+      ],
+      "supports_image_detail_original": false,
+      "truncation_policy": {
+        "mode": "tokens",
+        "limit": 900000
+      },
+      "supports_parallel_tool_calls": true,
+      "prefer_websockets": false,
+      "support_verbosity": false,
+      "visibility": "list",
+      "supported_in_api": true
+    }
+  ]
+}

@@ -204,7 +204,7 @@ if (Test-Path ".\models_catalog.json") {
 
 打开 CC Switch，进入 Codex 页面。
 
-新增 Provider，填写：
+新增 Provider，config.tomal里填写：
 
 ```text
 Name:
@@ -219,18 +219,37 @@ moonbridge
 编写config.tomal内容
 重点修改成：
 
-model = "moonbridge"
+model = "deepseek-v4-pro"
 model_provider = "moonbridge"
-model_reasoning_effort = "high"
+model_reasoning_effort = "xhigh"
 model_context_window = 1000000
 model_auto_compact_token_limit = 900000
 
 [model_providers.moonbridge]
-name = "MoonBridge DeepSeek"
+name = "deepseek-v4-pro"
 base_url = "http://127.0.0.1:38440/v1"
 wire_api = "responses"
 
 ```
+---
+[⚠️ 当前账号登录存在兼容问题未跑通，改方法参考别人api模式是生效]
+配置百万上下文，参考models_catalog.json放在.codex里
+
+models_catalog.json示例我已经放在通文件夹下
+
+config.tomal里该位置增加一行示例指引
+
+model = "deepseek-v4-pro"
+model_provider = "moonbridge"
+model_reasoning_effort = "xhigh"
+
+model_catalog_json = "C:\\Users\\你的用户名\\.codex\\models_catalog.json"
+
+model_context_window = 1000000
+model_auto_compact_token_limit = 900000
+
+---
+
 
 ## 7. 启用 CC Switch Local Routing
 
