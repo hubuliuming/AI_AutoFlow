@@ -15,6 +15,7 @@
 - `AGENTS.md`: root Codex collaboration rule document.
 - `Unity/AGENTS.md`: Unity-side controlled execution rules.
 - `Unity/CLAUDE.md`: Claude-side counterpart of Unity execution rules.
+- `Cocos/AGENTS.md`: Cocos-side Codex client controlled execution rules.
 
 ## Directory Map
 
@@ -23,6 +24,7 @@
 - `Com/Skill/`: local Codex skills.
 - `Doc/`: AI-facing project documents.
 - `Unity/`: Unity-side project area and harness instruction files.
+- `Cocos/`: Cocos-side project area and Codex client rule document.
 - `README.md`: external-facing repository entry document for users and maintainers.
 - `LICENSE`: project license file.
 
@@ -35,6 +37,9 @@
 - Unity-side rules require a confirmed plan before execution.
 - Unity-side rules require real changes to be synchronized back to project documents after execution.
 - Unity-side rules require Chinese documents to be read and written with explicit UTF-8 encoding.
+- `Cocos/AGENTS.md` defines the Cocos-side Codex client as a controlled execution agent and keeps the same plan-first, confirmed-execution, minimal-change, document-sync philosophy.
+- `Cocos/AGENTS.md` is an execution constraint document only; it does not define Cocos business architecture, gameplay rules, resource naming standards, or build parameters.
+- Cocos-side rules require explicit permission confirmation before changing Scene, Prefab, Node hierarchy, animation resources, `.meta` / UUID, Asset Bundle, or build configuration structure.
 - `Com/Skill/sync-harness/` exists as a local Skill for synchronizing `AGENTS.md` or `AGENT.md` with `CLAUDE.md`.
 - `Com/Skill/init-ai-docs/` exists as a local Skill for creating or updating Chinese AI-facing project understanding documents under `Doc/`.
 - `Com/Skill/init-ai-docs/` defines `Doc/AI_Understanding.md` as the document index entry and project map, with detailed project information split into module documents under `Doc/`.
@@ -47,6 +52,7 @@
   - `sync-harness`: synchronizes harness instruction files while preserving tool-specific differences.
   - `init-ai-docs`: initializes or refreshes Chinese `Doc/AI_Understanding.md` as the document map and generates module docs based on scanned project facts.
 - `Unity`: contains Unity-side harness instruction documents. Runtime Unity assets, scripts, scenes, and prefabs are not visible in the current tracked file list.
+- `Cocos`: contains Cocos-side Codex client execution rules. Runtime Cocos assets, scripts, scenes, and prefabs are not visible in the current tracked file list.
 
 ## Current Strategy
 
@@ -59,6 +65,7 @@
 - Oversized module documents should be split into smaller child documents with indexes retained in the parent document.
 - Changes under `Com/Skill/` must be synchronized to the corresponding Codex client-side Skill under `C:\Users\song\.codex\skills\<skill-name>\` when the client-side target is confirmed.
 - The current project-side and Codex client-side `init-ai-docs` Skill files are synchronized.
+- Cocos-side execution should follow `Cocos/AGENTS.md` as a Codex client rule constraint while keeping actual Cocos project facts sourced from confirmed project documents, confirmed user plans, or inspected real files.
 
 ## Known Issues
 
@@ -68,5 +75,7 @@
 
 - Actual Unity runtime architecture is `UNKNOWN`.
 - Actual gameplay, editor tooling, build process, and asset layout are `UNKNOWN`.
+- Actual Cocos runtime architecture is `UNKNOWN`.
+- Actual Cocos gameplay, editor tooling, build process, asset layout, and resource binding state are `UNKNOWN`.
 - Project purpose beyond the repository name is `UNKNOWN`.
 - Whether additional module documents are needed beyond `AI_Understanding.md` is `UNKNOWN` until more project files or documented modules exist.
