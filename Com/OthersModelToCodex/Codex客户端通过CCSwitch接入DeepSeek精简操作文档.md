@@ -120,6 +120,9 @@ providers:
       - model: deepseek-v4-pro
 
 routes:
+  codex-auto-review:
+    model: deepseek-v4-pro
+    provider: deepseek
   moonbridge:
     model: deepseek-v4-pro
     provider: deepseek
