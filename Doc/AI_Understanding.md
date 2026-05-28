@@ -1,83 +1,96 @@
-# AI Understanding
+# AI 项目导航总图
 
-## Project Identity
+> AI_AutoFlow 是一个围绕 Unity 项目协作、AI 文档理解和本地 Skill 管理组织的工程仓库。
 
-- Repository path: `C:\dev\U3D\AI_AutoFlow`
-- Repository name: `AI_AutoFlow`
-- License file exists: `LICENSE`
-- `README.md` exists and now provides an external-facing project description, usage workflow, directory overview, collaboration convention, and maintainer note for Skill synchronization.
-- Visible project purpose: `UNKNOWN`
+## 0. 使用规则
 
-## Document Index
+- 默认先读取本文件，用它判断下一步应该读取哪些文档。
+- 只在任务命中对应领域时读取模块文档，不默认展开所有文档。
+- `Doc/ChangeLog/` 是冷层历史记录，默认不读取。
+- 只有追溯历史、解释既有变更、排查回归或用户明确要求时，才读取 `Doc/ChangeLog/`。
+- `Doc/Decisions/` 仅用于架构级决策记录；当前不存在该目录，普通变更不得为了形式创建 ADR。
+- 未在项目文档、已确认方案或真实文件中证明的信息一律视为 `UNKNOWN`。
 
-- `Doc/AI_Understanding.md`: project-level AI understanding entry document.
-- `README.md`: external-facing repository entry document summarizing project description, usage workflow, directory overview, and collaboration convention.
-- `AGENTS.md`: root Codex collaboration rule document.
-- `Unity/AGENTS.md`: Unity-side controlled execution rules.
-- `Unity/CLAUDE.md`: Claude-side counterpart of Unity execution rules.
-- `Cocos/AGENTS.md`: Cocos-side Codex client controlled execution rules.
-- `Cocos/CLAUDE.md`: Claude-side counterpart of Cocos execution rules.
+## 1. 快速路由表
 
-## Directory Map
+| 用户问题类型 | 先读文档 | 再读文档 | 默认不读 |
+|---|---|---|---|
+| 项目整体理解 | `Doc/AI_Understanding.md` | `README.md` | `Doc/ChangeLog/` |
+| Unity 侧执行规则 | `Doc/Unity.md` | `Unity/AGENTS.md` 或 `Unity/CLAUDE.md` | `Doc/ChangeLog/` |
+| Cocos 侧执行规则 | `Doc/Cocos.md` | `Cocos/AGENTS.md` 或 `Cocos/CLAUDE.md` | `Doc/ChangeLog/` |
+| Skill 创建、更新或同步 | `Doc/Skills.md` | `AGENTS.md`、`Com/Skill/<skill-name>/SKILL.md` | 历史日志 |
+| 变更历史追溯 | `Doc/ChangeLog/README.md` | 对应月份 `Doc/ChangeLog/ChangeLog_YYYY-MM.md` | 不相关月份日志 |
+| 架构级决策原因 | `Doc/AI_Understanding.md` | `Doc/Decisions/` 中对应 ADR（若存在） | `Doc/ChangeLog/` |
 
-- `.git/`: git repository metadata.
-- `.idea/`: IDE metadata.
-- `Com/Skill/`: local Codex skills.
-- `Doc/`: AI-facing project documents.
-- `Unity/`: Unity-side project area and harness instruction files.
-- `Cocos/`: Cocos-side project area and harness instruction files.
-- `README.md`: external-facing repository entry document for users and maintainers.
-- `LICENSE`: project license file.
+## 2. 文档索引
 
-## Confirmed Facts
+| 文档 | 职责 | 读取时机 | 默认读取 |
+|---|---|---|---|
+| `Doc/AI_Understanding.md` | AI 项目导航总图、路由表、全局事实与未知项 | 每次需要理解项目边界时 | 是 |
+| `Doc/Unity.md` | Unity 侧规则入口、读取路径、边界和验证提示 | Unity 相关任务 | 按需 |
+| `Doc/Cocos.md` | Cocos 侧规则入口、读取路径、边界和验证提示 | Cocos 相关任务 | 按需 |
+| `Doc/Skills.md` | 本地 Skill 清单、同步规则和读取路径 | Skill 相关任务 | 按需 |
+| `Doc/ChangeLog/README.md` | ChangeLog 目录规则和索引 | 需要追溯历史时 | 否 |
+| `Doc/ChangeLog/ChangeLog_2026-05.md` | 2026-05 的真实变更记录 | 追溯 2026-05 变更时 | 否 |
+| `README.md` | 外部使用者入口说明 | 需要仓库用途和协作概览时 | 否 |
+| `AGENTS.md` | 根目录 Codex 协作规则和 Skill 同步规则 | 修改 Skill 或执行仓库级任务时 | 按需 |
+| `Unity/AGENTS.md` | Unity 侧 Codex 执行约束 | Unity 侧 Codex 任务 | 按需 |
+| `Unity/CLAUDE.md` | Unity 侧 Claude 执行约束 | Unity 侧 Claude 任务 | 按需 |
+| `Cocos/AGENTS.md` | Cocos 侧 Codex 执行约束 | Cocos 侧 Codex 任务 | 按需 |
+| `Cocos/CLAUDE.md` | Cocos 侧 Claude 执行约束 | Cocos 侧 Claude 任务 | 按需 |
 
-- Root `AGENTS.md` says the agent has three duties: generate a plan from the user prompt, execute based on a confirmed plan, and synchronize real changes back to project documents.
-- Root `AGENTS.md` requires Codex client-side Skill synchronization whenever content under `Com/Skill/` is modified.
-- `README.md` has been adjusted to serve external users with project explanation and usage flow, while still avoiding undocumented Unity runtime, gameplay, or build-process facts.
-- `Unity/AGENTS.md` and `Unity/CLAUDE.md` define the Unity-side agent as a controlled code execution agent.
-- Unity-side rules require a confirmed plan before execution.
-- Unity-side rules require real changes to be synchronized back to project documents after execution.
-- Unity-side rules require Chinese documents to be read and written with explicit UTF-8 encoding.
-- `Cocos/AGENTS.md` defines the Cocos-side Codex client as a controlled execution agent and keeps the same plan-first, confirmed-execution, minimal-change, document-sync philosophy.
-- `Cocos/CLAUDE.md` defines the Claude-side counterpart of Cocos controlled execution rules and is aligned with `Cocos/AGENTS.md` except for necessary self-referential file-name wording.
-- `Cocos/AGENTS.md` is an execution constraint document only; it does not define Cocos business architecture, gameplay rules, resource naming standards, or build parameters.
-- Cocos-side rules require explicit permission confirmation before changing Scene, Prefab, Node hierarchy, animation resources, `.meta` / UUID, Asset Bundle, or build configuration structure.
-- `Com/Skill/sync-harness/` exists as a local Skill for synchronizing `AGENTS.md` or `AGENT.md` with `CLAUDE.md`.
-- `Com/Skill/init-ai-docs/` exists as a local Skill for creating or updating Chinese AI-facing project understanding documents under `Doc/`.
-- `Com/Skill/init-ai-docs/` defines `Doc/AI_Understanding.md` as the document index entry and project map, with detailed project information split into module documents under `Doc/`.
-- `Com/Skill/init-ai-docs/` requires project-size evaluation before generating docs, so document category count can scale with project volume and avoid oversized single documents.
-- `Com/Skill/init-ai-docs/` has been synchronized to the Codex client-side Skill path `C:\Users\song\.codex\skills\init-ai-docs\`.
+## 3. 目录地图
 
-## Module Overview
+| 路径 | 职责 | 读取时机 |
+|---|---|---|
+| `Doc/` | AI 面向的项目导航、模块地图和冷层历史记录 | 需要项目事实或文档索引时 |
+| `Doc/ChangeLog/` | 按月拆分的真实变更记录 | 需要追溯历史时 |
+| `Com/Skill/` | 项目内 Codex Skill | 修改或检查 Skill 时 |
+| `Unity/` | Unity 侧项目区域和 harness 规则文档 | Unity 相关任务 |
+| `Cocos/` | Cocos 侧项目区域、harness 规则文档和通用协议说明 | Cocos 相关任务 |
+| `README.md` | 仓库外部说明 | 需要仓库概览时 |
+| `AGENTS.md` | 根目录执行规则 | 仓库级执行或 Skill 同步任务 |
+| `LICENSE` | 许可证文件 | 需要许可证信息时 |
 
-- `Com/Skill`: contains local Codex skills.
-  - `sync-harness`: synchronizes harness instruction files while preserving tool-specific differences.
-  - `init-ai-docs`: initializes or refreshes Chinese `Doc/AI_Understanding.md` as the document map and generates module docs based on scanned project facts.
-- `Unity`: contains Unity-side harness instruction documents. Runtime Unity assets, scripts, scenes, and prefabs are not visible in the current tracked file list.
-- `Cocos`: contains Cocos-side Codex client and Claude-side execution rules. Runtime Cocos assets, scripts, scenes, and prefabs are not visible in the current tracked file list.
+## 4. 模块地图
 
-## Current Strategy
+| 模块 | 入口路径 | 模块文档 | 状态 | 可信来源 |
+|---|---|---|---|---|
+| 项目协作规则 | `AGENTS.md` | 本文件 | 已确认 | `AGENTS.md`、`README.md` |
+| Unity 侧规则 | `Unity/AGENTS.md`、`Unity/CLAUDE.md` | `Doc/Unity.md` | 已确认 | `Unity/AGENTS.md`、`Unity/CLAUDE.md` |
+| Cocos 侧规则 | `Cocos/AGENTS.md`、`Cocos/CLAUDE.md` | `Doc/Cocos.md` | 已确认 | `Cocos/AGENTS.md`、`Cocos/CLAUDE.md` |
+| Skill 管理 | `Com/Skill/` | `Doc/Skills.md` | 已确认 | `AGENTS.md`、`Com/Skill/*/SKILL.md` |
+| 变更记录 | `Doc/ChangeLog/` | `Doc/ChangeLog/README.md` | 已确认 | 已确认方案、当前文件结构 |
 
-- The project follows a plan-first workflow: no implementation work should start until a plan is confirmed.
-- After execution, project documents must reflect only real changes that occurred.
-- The AI understanding document is the project-level document index and map for future AI agents.
-- Detailed project information should be written to module documents under `Doc/` when module boundaries are explicit.
-- Documents generated by `init-ai-docs` under `Doc/` must use Chinese, while paths, file names, class names, method names, commands, and configuration keys may retain original names.
-- `init-ai-docs` should dynamically adjust document count based on project size, module boundaries, file count, and document complexity.
-- Oversized module documents should be split into smaller child documents with indexes retained in the parent document.
-- Changes under `Com/Skill/` must be synchronized to the corresponding Codex client-side Skill under `C:\Users\song\.codex\skills\<skill-name>\` when the client-side target is confirmed.
-- The current project-side and Codex client-side `init-ai-docs` Skill files are synchronized.
-- Cocos-side execution should follow `Cocos/AGENTS.md` or `Cocos/CLAUDE.md` as the active harness rule constraint while keeping actual Cocos project facts sourced from confirmed project documents, confirmed user plans, or inspected real files.
+## 5. 推荐阅读路径
 
-## Known Issues
+- 最小路径：`Doc/AI_Understanding.md`。
+- 仓库级规则任务：`Doc/AI_Understanding.md` -> `AGENTS.md`。
+- Unity 任务：`Doc/AI_Understanding.md` -> `Doc/Unity.md` -> `Unity/AGENTS.md` 或 `Unity/CLAUDE.md`。
+- Cocos 任务：`Doc/AI_Understanding.md` -> `Doc/Cocos.md` -> `Cocos/AGENTS.md` 或 `Cocos/CLAUDE.md`。
+- Skill 任务：`Doc/AI_Understanding.md` -> `Doc/Skills.md` -> `AGENTS.md` -> `Com/Skill/<skill-name>/SKILL.md`。
+- 历史追溯任务：`Doc/AI_Understanding.md` -> `Doc/ChangeLog/README.md` -> 对应月份日志。
 
-- No documented active issues found.
+## 6. 全局确认事实
 
-## Unknowns
+- 仓库路径是 `C:\dev\U3D\AI_AutoFlow`。
+- 仓库名是 `AI_AutoFlow`。
+- `LICENSE` 文件存在。
+- `README.md` 提供仓库用途、使用流程、目录结构、协作约定和 Skill 同步维护说明。
+- 根目录 `AGENTS.md` 规定职责为根据用户提词生成方案、基于已确认方案执行、将真实改动同步回项目文档。
+- 修改 `Com/Skill/` 下任意 Skill 内容时，必须同步到 Codex 客户端侧对应 Skill。
+- `Com/Skill/init-ai-docs/` 存在，用于初始化或刷新中文 AI 导航文档。
+- `Com/Skill/sync-harness/` 存在，用于同步 `AGENTS.md` 或 `AGENT.md` 与 `CLAUDE.md`。
+- Unity 侧规则文件是 `Unity/AGENTS.md` 和 `Unity/CLAUDE.md`。
+- Cocos 侧规则文件是 `Cocos/AGENTS.md` 和 `Cocos/CLAUDE.md`。
+- Unity 和 Cocos 侧变更记录应写入 `Doc/ChangeLog/ChangeLog_YYYY-MM.md`，默认不进入常规读取上下文。
+- 当前项目文档采用冷热分层：导航和模块地图为热/温层，ChangeLog 为冷层。
 
-- Actual Unity runtime architecture is `UNKNOWN`.
-- Actual gameplay, editor tooling, build process, and asset layout are `UNKNOWN`.
-- Actual Cocos runtime architecture is `UNKNOWN`.
-- Actual Cocos gameplay, editor tooling, build process, asset layout, and resource binding state are `UNKNOWN`.
-- Project purpose beyond the repository name is `UNKNOWN`.
-- Whether additional module documents are needed beyond `AI_Understanding.md` is `UNKNOWN` until more project files or documented modules exist.
+## 7. 全局未知项
+
+- 实际 Unity 运行时架构是 `UNKNOWN`。
+- 实际 Unity 玩法、编辑器工具、构建流程和资源布局是 `UNKNOWN`。
+- 实际 Cocos 运行时架构是 `UNKNOWN`。
+- 实际 Cocos 玩法、编辑器工具、构建流程、资源布局和资源绑定状态是 `UNKNOWN`。
+- 仓库用途除 `README.md` 已描述内容外仍是 `UNKNOWN`。
+- 是否需要更多业务模块文档，取决于未来能否从真实文件证明明确模块边界。
