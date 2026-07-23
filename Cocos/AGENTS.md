@@ -310,6 +310,27 @@
 
 ---
 
+## 编写代码规范
+
+适用范围：会进入 Cocos Preview、Web、小游戏或原生正式构建产物的 TypeScript / JavaScript 运行时代码。
+
+### 非数组可迭代对象转换规则
+
+- 禁止使用数组展开语法把 `Set`、`Map`、`Map.entries()`、`Map.keys()`、`Map.values()`、生成器或其他非数组可迭代对象转换为数组
+- 禁止写法包括 `[...new Set(values)]`、`[...map.entries()]`、`[...map.keys()]`、`[...map.values()]`
+- 必须分别使用 `Array.from(new Set(values))`、`Array.from(map.entries())`、`Array.from(map.keys())`、`Array.from(map.values())`
+- 对遍历期间会删除或修改的 `Map` / `Set`，必须先通过 `Array.from()` 建立稳定条目快照，再遍历并修改原集合
+- 原生数组的展开不受本规则限制
+
+### 正式包差异诊断与验收规则
+
+- 当问题只在正式包出现时，必须同时对照源码、Preview 编译产物和本次正式构建产物，不得只检查 TypeScript 源码或 Cocos Preview
+- 必须重点检查非数组可迭代对象是否被错误转译为 `[].concat(iterator)`，以及运行时是否出现 `[object Set]`、`[object Map]` 或集合内容未展开等语义变化
+- Cocos Preview 通过不能证明正式包转译正确；正式包问题只有在重新生成构建产物、确认目标代码转译语义正确并完成原正式包复现流程后，才能判定通过
+- 本节不改变“测试执行约束”：未经用户明确要求或已确认方案授权，不得主动执行 Cocos Creator 命令行构建、平台发布或扩写测试
+
+---
+
 ## Cocos 资源与序列化规则
 
 - `assets` 下资源与同名 `.meta` 是一组事实，不得只移动或只修改其中一方
