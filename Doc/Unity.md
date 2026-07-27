@@ -16,6 +16,7 @@ Unity 模块记录 Unity 侧 harness 规则入口、执行边界和文档读取�
 - Unity 侧任务必须先有方案，再执行。
 - 默认禁止直接修改 Animator Controller、Prefab 层级结构和 Scene 物体结构。
 - 写入代码时必须保持职责边界清晰，必要时按已确认方案拆分脚本。
+- Unity 运行时代码在保证正确性和已确认行为的前提下性能优先，禁止为未经证实的风险堆叠保护性代码。
 - 中文文档读写必须显式使用 UTF-8。
 - 变更记录写入 `Doc/ChangeLog/ChangeLog_YYYY-MM.md`，默认不读取历史日志。
 

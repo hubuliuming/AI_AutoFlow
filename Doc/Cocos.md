@@ -18,6 +18,7 @@ Cocos 模块记录 Cocos 侧 harness 规则入口、执行边界和文档读取�
 - `AGENTS.md` 和 `CLAUDE.md` 只提供执行约束，不提供业务事实。
 - 不得因为仓库中存在示例、说明或协议文档，就自动视为当前 Cocos 项目的业务规则。
 - 修改 Scene、Prefab、Node、Animation、`.meta`、UUID、Bundle 或构建配置前必须先做权限确认。
+- Cocos 运行时代码在保证正确性和已确认行为的前提下性能优先，禁止为未经证实的风险堆叠保护性代码。
 - 变更记录写入 `Doc/ChangeLog/ChangeLog_YYYY-MM.md`，默认不读取历史日志。
 
 ## 事实清单
