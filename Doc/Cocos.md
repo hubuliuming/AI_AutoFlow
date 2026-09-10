@@ -9,7 +9,7 @@ Cocos 模块记录 Cocos 侧 harness 规则入口、执行边界和文档读取�
 | 类型 | 路径 | 作用 | 读取时机 |
 |---|---|---|---|
 | Codex 规则 | `Cocos/AGENTS.md` | Cocos 侧 Codex 受控执行规则 | Codex 执行 Cocos 相关任务时 |
-| 代码规范 | `Cocos/CodeRule.md` | 代码结构、失败暴露、运行时代码性能和集合转换规范 | Codex 编写或修改 Cocos TypeScript / JavaScript 代码前必须读取 |
+| 代码规范 | `Cocos/CodeRule.md` | 代码结构、失败暴露、批量单项失败隔离、运行时代码性能和集合转换规范 | Codex 编写或修改 Cocos TypeScript / JavaScript 代码前必须读取 |
 | Claude 规则 | `Cocos/CLAUDE.md` | Cocos 侧 Claude 受控执行规则 | Claude 执行 Cocos 相关任务时 |
 | 通用说明 | `Cocos/CocosBackendProtocolGuide.md` | 通用 Cocos 后端协议组织说明 | 用户明确询问协议说明时 |
 
@@ -21,6 +21,8 @@ Cocos 模块记录 Cocos 侧 harness 规则入口、执行边界和文档读取�
 - 不得因为仓库中存在示例、说明或协议文档，就自动视为当前 Cocos 项目的业务规则。
 - 修改 Scene、Prefab、Node、Animation、`.meta`、UUID、Bundle 或构建配置前必须先做权限确认。
 - Cocos 运行时代码在保证正确性和已确认行为的前提下性能优先，禁止为未经证实的风险堆叠保护性代码。
+- 背包加载、批量实例化等独立条目流程必须隔离单项失败：记录可定位的错误、清理失败项并继续后续条目，异步处理同样适用；必要的边界校验和 `try/catch` 属于允许的保护性处理。
+- 整批必要前提失效时在批次入口报错并终止；要求整体一致性的操作不适用逐项跳过规则。
 - 变更记录写入 `Doc/ChangeLog/ChangeLog_YYYY-MM.md`，默认不读取历史日志。
 
 ## 事实清单
