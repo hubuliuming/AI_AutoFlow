@@ -1,4 +1,4 @@
 interface:
   display_name: "Init AI Docs"
-  short_description: "Create Chinese AI navigation maps and module docs"
-  default_prompt: "Use $init-ai-docs to initialize or refresh Chinese Doc/AI_Understanding.md as a lightweight AI project navigation map with module docs and cold ChangeLog storage."
+  short_description: "Initialize, maintain, audit and split Chinese AI project docs"
+  default_prompt: "Use $init-ai-docs to initialize, incrementally update, audit, or split Chinese AI project docs under Doc/, following the requested scope and preserving verified rules and unknowns."
