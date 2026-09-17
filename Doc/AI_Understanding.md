@@ -35,6 +35,7 @@
 | `Doc/ChangeLog/ChangeLog_2026-05.md` | 2026-05 的真实变更记录 | 追溯 2026-05 变更时 | 否 |
 | `README.md` | 外部使用者入口说明 | 需要仓库用途和协作概览时 | 否 |
 | `AGENTS.md` | 根目录 Codex 协作规则和 Skill 同步规则 | 修改 Skill 或执行仓库级任务时 | 按需 |
+| `CLAUDE.md` | 根目录 Claude 协作规则和 Skill 同步规则 | Claude 执行仓库级任务时 | 按需 |
 | `Unity/AGENTS.md` | Unity 侧 Codex 执行约束 | Unity 侧 Codex 任务 | 按需 |
 | `Unity/CLAUDE.md` | Unity 侧 Claude 执行约束 | Unity 侧 Claude 任务 | 按需 |
 | `Cocos/AGENTS.md` | Cocos 侧 Codex 执行约束 | Cocos 侧 Codex 任务 | 按需 |
@@ -58,7 +59,7 @@
 
 | 模块 | 入口路径 | 模块文档 | 状态 | 可信来源 |
 |---|---|---|---|---|
-| 项目协作规则 | `AGENTS.md` | 本文件 | 已确认 | `AGENTS.md`、`README.md` |
+| 项目协作规则 | `AGENTS.md`、`CLAUDE.md` | 本文件 | 已确认 | `AGENTS.md`、`CLAUDE.md`、`README.md` |
 | Unity 侧规则 | `Unity/AGENTS.md`、`Unity/CLAUDE.md` | `Doc/Unity.md` | 已确认 | `Unity/AGENTS.md`、`Unity/CLAUDE.md` |
 | Cocos 侧规则 | `Cocos/AGENTS.md`、`Cocos/CLAUDE.md`、`Cocos/CodeRule.md` | `Doc/Cocos.md` | 已确认 | `Cocos/AGENTS.md`、`Cocos/CLAUDE.md`、`Cocos/CodeRule.md` |
 | Skill 管理 | `Com/Skill/` | `Doc/Skills.md` | 已确认 | `AGENTS.md`、`Com/Skill/*/SKILL.md` |
@@ -81,6 +82,7 @@
 - `LICENSE` 文件存在。
 - `README.md` 提供仓库用途、使用流程、目录结构、协作约定和 Skill 同步维护说明。
 - 根目录 `AGENTS.md` 规定职责为根据用户提词生成方案、基于已确认方案执行、将真实改动同步回项目文档。
+- 根目录 `CLAUDE.md` 与 `AGENTS.md` 内容一致，提供相同的仓库级协作与 Skill 同步规则。
 - 修改 `Com/Skill/` 下任意 Skill 内容时，必须同步到 Codex 客户端侧对应 Skill。
 - `Com/Skill/init-ai-docs/` 存在，用于初始化或刷新中文 AI 导航文档。
 - `Com/Skill/sync-harness/` 存在，用于同步 `AGENTS.md` 或 `AGENT.md` 与 `CLAUDE.md`。

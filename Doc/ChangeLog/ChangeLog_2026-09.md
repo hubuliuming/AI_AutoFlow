@@ -1,5 +1,10 @@
 # 2026-09 变更记录
 
+## 2026-09-17
+
+- 从根目录 `AGENTS.md` 创建内容一致的 `CLAUDE.md`，同步仓库级协作与 Skill 同步规则。
+- 更新 `Doc/AI_Understanding.md`，记录根目录 Claude 规则入口与现状。
+
 ## 2026-09-10
 
 - 将 `Cocos/AGENTS.md` 中的“代码结构清晰”“失败暴露优先”和“编写代码规范”迁移至 `Cocos/CodeRule.md`，保留原规则含义及适用范围。
